@@ -1,0 +1,224 @@
+/**
+ * 主应用样式
+ */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === 头部 === */
+.header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(15, 15, 35, 0.8);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-gradient);
+  border-radius: var(--radius-md);
+  color: white;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-tagline {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* === 主内容 === */
+.main {
+  flex: 1;
+  padding: 60px 24px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* 区块通用样式 */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: -16px;
+}
+
+/* 结果标题 */
+.result-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  color: white;
+}
+
+/* === 特性展示 === */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 24px;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
+}
+
+.feature:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.feature-text h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.feature-text p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* === 错误状态 === */
+.error-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px;
+  text-align: center;
+}
+
+.error-icon {
+  font-size: 3rem;
+}
+
+.error-card h3 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.error-card p {
+  color: var(--text-secondary);
+}
+
+/* === 底部 === */
+.footer {
+  padding: 24px;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  background: rgba(15, 15, 35, 0.5);
+}
+
+.footer p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.footer .highlight {
+  color: var(--primary-color);
+}
+
+/* === 响应式 === */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .main {
+    padding: 40px 16px;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .feature {
+    padding: 16px;
+  }
+}

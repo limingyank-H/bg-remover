@@ -1,0 +1,140 @@
+/**
+ * 上传区域样式
+ */
+
+.upload-zone-wrapper {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.upload-zone {
+    position: relative;
+    padding: 60px 40px;
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    overflow: hidden;
+}
+
+/* 动态边框效果 */
+.upload-border {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-xl);
+    border: 2px dashed var(--border-color);
+    pointer-events: none;
+    transition: all var(--transition-normal);
+}
+
+.upload-zone:hover .upload-border {
+    border-color: var(--primary-color);
+}
+
+.upload-zone.dragging .upload-border {
+    border-color: var(--accent-color);
+    border-style: solid;
+    animation: borderGlow 1.5s ease-in-out infinite;
+}
+
+/* 拖拽状态 */
+.upload-zone.dragging {
+    background: rgba(102, 126, 234, 0.1);
+    transform: scale(1.02);
+}
+
+/* 禁用状态 */
+.upload-zone.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.upload-zone.disabled:hover .upload-border {
+    border-color: var(--border-color);
+}
+
+/* 隐藏原生 input */
+.upload-input {
+    display: none;
+}
+
+/* 内容区域 */
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+/* 图标 */
+.upload-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    color: white;
+    animation: float 3s ease-in-out infinite;
+}
+
+.upload-zone.dragging .upload-icon {
+    animation: none;
+    transform: scale(1.1);
+}
+
+/* 标题 */
+.upload-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.upload-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.upload-hint {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+/* 错误提示 */
+.upload-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: var(--radius-md);
+    color: #ef4444;
+    font-size: 0.875rem;
+    animation: fadeIn var(--transition-fast);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .upload-zone {
+        padding: 40px 24px;
+    }
+
+    .upload-icon {
+        width: 64px;
+        height: 64px;
+    }
+
+    .upload-icon svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .upload-title {
+        font-size: 1.25rem;
+    }
+}

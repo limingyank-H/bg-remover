@@ -1,0 +1,99 @@
+/**
+ * 处理进度样式
+ */
+
+.processing-status {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 32px;
+    max-width: 400px;
+    margin: 0 auto;
+    animation: fadeIn var(--transition-normal);
+}
+
+/* 图标动画 */
+.status-icon-wrapper {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.status-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.status-ring {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--primary-color);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1.5s linear infinite;
+}
+
+/* 内容 */
+.status-content {
+    flex: 1;
+}
+
+.status-message {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+/* 进度条 */
+.progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s linear infinite;
+}
+
+.status-percentage {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .processing-status {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .status-percentage {
+        text-align: center;
+    }
+}
