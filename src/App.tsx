@@ -9,6 +9,7 @@ import { ImagePreview } from './components/ImagePreview';
 import { DownloadPanel } from './components/DownloadPanel';
 import { ProcessingStatus } from './components/ProcessingStatus';
 import { removeImageBackground, blobToDataUrl } from './utils/imageProcessor';
+import { trackEvent } from './utils/analytics';
 import './App.css';
 
 // 应用状态类型
@@ -41,6 +42,9 @@ function App() {
     setResultUrl(null);
     setErrorMessage('');
 
+    // 追踪图片选择事件
+    trackEvent('image_upload', { name: file.name, size: file.size, type: file.type });
+
     // 创建原图预览 URL
     const objectUrl = URL.createObjectURL(file);
     setOriginalUrl(objectUrl);
@@ -55,10 +59,16 @@ function App() {
       const dataUrl = await blobToDataUrl(resultBlob);
       setResultUrl(dataUrl);
       setAppState('done');
+
+      // 追踪抠图处理成功
+      trackEvent('processing_complete');
     } catch (error) {
       console.error('抠图处理失败:', error);
       setErrorMessage('抠图处理失败，请尝试其他图片');
       setAppState('error');
+
+      // 追踪抠图处理失败
+      trackEvent('processing_error', { error: String(error) });
     }
   }, []);
 
@@ -77,7 +87,10 @@ function App() {
     setOriginalFilename('');
     setProgress({ percentage: 0, message: '准备中...' });
     setErrorMessage('');
-  }, [originalUrl]);
+
+    // 追踪重置操作
+    trackEvent('reset_click');
+  }, [originalUrl, resultUrl]);
 
   return (
     <div className="app">

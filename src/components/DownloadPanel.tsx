@@ -6,6 +6,7 @@
 import { useState } from 'react';
 import { SIZE_OPTIONS, resizeImage } from '../utils/imageProcessor';
 import { downloadBlob, generateFilename } from '../utils/download';
+import { trackEvent } from '../utils/analytics';
 import './DownloadPanel.css';
 
 interface DownloadPanelProps {
@@ -50,6 +51,14 @@ export function DownloadPanel({
             // 调整尺寸
             const blob = await resizeImage(resultUrl, targetWidth, targetHeight, format);
 
+            // 追踪下载点击事件
+            trackEvent('download_click', {
+                format,
+                size_label: showCustomSize ? 'custom' : SIZE_OPTIONS[selectedSizeIndex].label,
+                width: targetWidth,
+                height: targetHeight
+            });
+
             // 生成文件名并下载
             const sizeLabel = showCustomSize
                 ? `${customWidth}x${customHeight}`
@@ -58,6 +67,7 @@ export function DownloadPanel({
             downloadBlob(blob, filename);
         } catch (error) {
             console.error('下载失败:', error);
+            trackEvent('download_error', { error: String(error) });
         } finally {
             setIsDownloading(false);
         }
@@ -78,6 +88,7 @@ export function DownloadPanel({
                             onClick={() => {
                                 setSelectedSizeIndex(index);
                                 setShowCustomSize(false);
+                                trackEvent('size_select', { label: option.label });
                             }}
                         >
                             {option.label}
@@ -121,14 +132,20 @@ export function DownloadPanel({
                 <div className="format-options">
                     <button
                         className={`format-option ${format === 'png' ? 'active' : ''}`}
-                        onClick={() => setFormat('png')}
+                        onClick={() => {
+                            setFormat('png');
+                            trackEvent('format_select', { format: 'png' });
+                        }}
                     >
                         <span className="format-name">PNG</span>
                         <span className="format-desc">透明背景</span>
                     </button>
                     <button
                         className={`format-option ${format === 'jpeg' ? 'active' : ''}`}
-                        onClick={() => setFormat('jpeg')}
+                        onClick={() => {
+                            setFormat('jpeg');
+                            trackEvent('format_select', { format: 'jpeg' });
+                        }}
                     >
                         <span className="format-name">JPG</span>
                         <span className="format-desc">白色背景</span>
